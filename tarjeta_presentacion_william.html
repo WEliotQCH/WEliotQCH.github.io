@@ -1,0 +1,665 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  .scene {
+    min-height: 760px;
+    background: #0d1b2e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2.5rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+    font-family: system-ui, sans-serif;
+  }
+
+  .bg-circle-1 {
+    position: absolute;
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    border: 1px solid rgba(58,123,213,0.12);
+    top: -80px; left: -100px;
+  }
+  .bg-circle-2 {
+    position: absolute;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    border: 1px solid rgba(58,123,213,0.08);
+    top: 40px; left: -30px;
+  }
+  .bg-circle-3 {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    border: 1px solid rgba(58,123,213,0.07);
+    bottom: -180px; right: -160px;
+  }
+  .bg-circle-4 {
+    position: absolute;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    border: 1px solid rgba(58,123,213,0.1);
+    bottom: 40px; right: 20px;
+  }
+
+  .dot-grid {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(58,123,213,0.18) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  .glow-left {
+    position: absolute;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: rgba(58,123,213,0.07);
+    top: 30%; left: -60px;
+    filter: blur(40px);
+  }
+  .glow-right {
+    position: absolute;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(58,123,213,0.06);
+    bottom: 10%; right: -40px;
+    filter: blur(50px);
+  }
+
+  .layout {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .left-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 200px;
+  }
+
+  .brand-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(58,123,213,0.12);
+    border: 1px solid rgba(58,123,213,0.25);
+    border-radius: 100px;
+    padding: 5px 12px;
+    width: fit-content;
+  }
+  .brand-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #3A7BD5;
+  }
+  .brand-tag span {
+    font-size: 10px;
+    font-weight: 600;
+    color: #A8C4F0;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .headline {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+  }
+  .headline em {
+    font-style: normal;
+    color: #3A7BD5;
+  }
+
+  .sub-text {
+    font-size: 12px;
+    color: #6B8FC7;
+    line-height: 1.6;
+  }
+
+  .stat-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .stat-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .stat-icon {
+    width: 30px; height: 30px;
+    border-radius: 8px;
+    background: rgba(58,123,213,0.13);
+    border: 1px solid rgba(58,123,213,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    color: #3A7BD5;
+    flex-shrink: 0;
+  }
+  .stat-text strong {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #D5E3F5;
+    line-height: 1.1;
+  }
+  .stat-text span {
+    font-size: 10.5px;
+    color: #6B8FC7;
+  }
+
+  .scan-hint {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+  }
+  .scan-line {
+    flex: 1;
+    height: 1px;
+    background: rgba(58,123,213,0.2);
+  }
+  .scan-text {
+    font-size: 10px;
+    color: #4a6a9a;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .phone {
+    width: 300px;
+    flex-shrink: 0;
+    border-radius: 38px;
+    background: #0a0a0a;
+    padding: 11px;
+    border: 1px solid #2a2a2a;
+    position: relative;
+  }
+
+  .phone::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 39px;
+    background: linear-gradient(135deg, rgba(58,123,213,0.35) 0%, transparent 50%, rgba(58,123,213,0.1) 100%);
+    z-index: -1;
+  }
+
+  .phone-side-btn {
+    position: absolute;
+    width: 3px;
+    background: #222;
+    border-radius: 2px;
+    right: -4px;
+    top: 100px;
+    height: 50px;
+  }
+  .phone-side-btn2 {
+    position: absolute;
+    width: 3px;
+    background: #222;
+    border-radius: 2px;
+    left: -4px;
+    top: 80px;
+    height: 32px;
+  }
+  .phone-side-btn3 {
+    position: absolute;
+    width: 3px;
+    background: #222;
+    border-radius: 2px;
+    left: -4px;
+    top: 124px;
+    height: 50px;
+  }
+
+  .screen {
+    border-radius: 28px;
+    overflow: hidden;
+    background: #1B2B4B;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .phone-notch {
+    width: 68px; height: 20px;
+    background: #0a0a0a;
+    border-radius: 0 0 12px 12px;
+    margin: 0 auto 6px;
+  }
+
+  .hero {
+    background: #1B2B4B;
+    padding: 22px 20px 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+  .hero::after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: #3A7BD5;
+  }
+
+  .avatar-ring {
+    width: 84px; height: 84px;
+    border-radius: 50%;
+    border: 2.5px solid #3A7BD5;
+    padding: 3px;
+    background: #1B2B4B;
+    margin-bottom: 12px;
+  }
+  .avatar-ring img {
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .card-name {
+    font-size: 15px; font-weight: 700;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 3px;
+  }
+  .card-title {
+    font-size: 10px; color: #A8C4F0;
+    text-align: center; margin-bottom: 2px;
+  }
+  .card-location {
+    font-size: 9.5px; color: #6B8FC7;
+    text-align: center;
+  }
+
+  .skills-strip {
+    display: flex; flex-wrap: wrap; gap: 5px;
+    padding: 12px 16px 0;
+    background: #F8FAFF;
+  }
+  .pill {
+    font-size: 9px; font-weight: 500;
+    background: #E3F0FF; color: #1B5FB7;
+    border-radius: 100px;
+    padding: 2px 9px;
+  }
+
+  .card-body {
+    background: #F8FAFF;
+    padding: 14px 14px 20px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+
+  .action-btn {
+    display: flex; align-items: center; gap: 10px;
+    background: #fff;
+    border: 0.5px solid #D1DCF0;
+    border-radius: 11px;
+    padding: 9px 12px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.15s, transform 0.1s;
+  }
+  .action-btn:hover { background: #EEF4FF; transform: translateY(-1px); }
+  .action-btn:active { transform: scale(0.98); }
+
+  .btn-icon {
+    width: 30px; height: 30px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 15px;
+  }
+  .btn-icon.green  { background: #E8F5E9; color: #2E7D32; }
+  .btn-icon.blue   { background: #E3F0FF; color: #1B5FB7; }
+  .btn-icon.navy   { background: #E8EEFA; color: #1B2B4B; }
+  .btn-icon.github { background: #F0F0F0; color: #1a1a1a; }
+
+  .btn-label {
+    font-size: 11.5px; font-weight: 600; color: #1B2B4B;
+    display: block; line-height: 1.2;
+  }
+  .btn-sub {
+    font-size: 9.5px; color: #6B7A8D;
+    display: block; margin-top: 1px;
+  }
+  .btn-arrow { font-size: 12px; color: #A8C4F0; margin-left: auto; }
+
+  .right-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-width: 170px;
+  }
+
+  .tech-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(58,123,213,0.18);
+    border-radius: 14px;
+    padding: 14px;
+  }
+
+  .tech-card-label {
+    font-size: 9px;
+    font-weight: 600;
+    color: #3A7BD5;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .tech-card-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(58,123,213,0.2);
+  }
+
+  .tech-list {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .tech-row {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .tech-bar-bg {
+    flex: 1;
+    height: 4px;
+    border-radius: 100px;
+    background: rgba(255,255,255,0.06);
+    overflow: hidden;
+  }
+  .tech-bar-fill {
+    height: 100%;
+    border-radius: 100px;
+    background: #3A7BD5;
+  }
+  .tech-name {
+    font-size: 10px;
+    color: #A8C4F0;
+    min-width: 52px;
+  }
+
+  .available-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(46,160,67,0.1);
+    border: 1px solid rgba(46,160,67,0.2);
+    border-radius: 10px;
+    padding: 10px 12px;
+  }
+  .avail-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #2ea043;
+    flex-shrink: 0;
+    animation: pulse-green 2s infinite;
+  }
+  @keyframes pulse-green {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .avail-text strong {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: #7ee787;
+  }
+  .avail-text span {
+    font-size: 9.5px;
+    color: #4a9a5a;
+  }
+
+  .qr-placeholder {
+    background: rgba(255,255,255,0.04);
+    border: 1px dashed rgba(58,123,213,0.25);
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .qr-box {
+    width: 72px; height: 72px;
+    border-radius: 8px;
+    background: #fff;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .qr-inner {
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+    gap: 2px;
+    padding: 6px;
+    width: 100%; height: 100%;
+  }
+  .qr-inner div {
+    border-radius: 1px;
+  }
+  .qr-label {
+    font-size: 9px;
+    color: #4a6a9a;
+    text-align: center;
+    line-height: 1.4;
+  }
+</style>
+
+
+<div class="scene">
+  <div class="dot-grid"></div>
+  <div class="bg-circle-1"></div>
+  <div class="bg-circle-2"></div>
+  <div class="bg-circle-3"></div>
+  <div class="bg-circle-4"></div>
+  <div class="glow-left"></div>
+  <div class="glow-right"></div>
+
+  <div class="layout">
+
+    <div class="left-panel">
+      <div>
+        <div class="brand-tag" style="margin-bottom:14px;">
+          <div class="brand-dot"></div>
+          <span>Marca personal</span>
+        </div>
+        <div class="headline">Tu próximo<br><em>desarrollador</em><br>favorito.</div>
+      </div>
+      <p class="sub-text">Diseño y construyo soluciones digitales robustas — desde APIs hasta apps móviles.</p>
+
+      <div class="stat-row">
+        <div class="stat-item">
+          <div class="stat-icon"><i class="ti ti-building" aria-hidden="true"></i></div>
+          <div class="stat-text">
+            <strong>Concretos Master Mix</strong>
+            <span>Flutter Developer</span>
+          </div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon"><i class="ti ti-school" aria-hidden="true"></i></div>
+          <div class="stat-text">
+            <strong>TECSUP</strong>
+            <span>6to semestre</span>
+          </div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon"><i class="ti ti-map-pin" aria-hidden="true"></i></div>
+          <div class="stat-text">
+            <strong>Arequipa, Perú</strong>
+            <span>Disponible presencial</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="scan-hint">
+        <div class="scan-line"></div>
+        <span class="scan-text">escanea el QR</span>
+        <div class="scan-line"></div>
+      </div>
+    </div>
+
+    <div class="phone">
+      <div class="phone-side-btn"></div>
+      <div class="phone-side-btn2"></div>
+      <div class="phone-side-btn3"></div>
+      <div class="screen">
+        <div class="phone-notch"></div>
+        <div class="hero">
+          <div class="avatar-ring">
+            <img src="img/74472955.jpg" alt="Foto de perfil" />
+          </div>
+          <div class="card-name">William Eliot Quispe Chino</div>
+          <div class="card-title">Backend Developer · Full Stack · Flutter</div>
+          <div class="card-location">📍 Arequipa, Perú</div>
+        </div>
+
+        <div class="skills-strip">
+          <span class="pill">C# / .NET</span>
+          <span class="pill">Flutter</span>
+          <span class="pill">React</span>
+          <span class="pill">Python</span>
+          <span class="pill">APIs REST</span>
+          <span class="pill">CQRS</span>
+        </div>
+
+        <div class="card-body">
+          <a class="action-btn" href="https://wa.me/51910466165" target="_blank">
+            <div class="btn-icon green"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i></div>
+            <div>
+              <span class="btn-label">WhatsApp</span>
+              <span class="btn-sub">+51 910 466 165</span>
+            </div>
+            <span class="btn-arrow"><i class="ti ti-chevron-right" aria-hidden="true"></i></span>
+          </a>
+          <a class="action-btn" href="tel:+51910466165">
+            <div class="btn-icon blue"><i class="ti ti-phone" aria-hidden="true"></i></div>
+            <div>
+              <span class="btn-label">Llamar al móvil</span>
+              <span class="btn-sub">+51 910 466 165</span>
+            </div>
+            <span class="btn-arrow"><i class="ti ti-chevron-right" aria-hidden="true"></i></span>
+          </a>
+          <a class="action-btn" href="mailto:w.eliotquch@gmail.com">
+            <div class="btn-icon navy"><i class="ti ti-mail" aria-hidden="true"></i></div>
+            <div>
+              <span class="btn-label">Enviar email</span>
+              <span class="btn-sub">w.eliotquch@gmail.com</span>
+            </div>
+            <span class="btn-arrow"><i class="ti ti-chevron-right" aria-hidden="true"></i></span>
+          </a>
+          <a class="action-btn" href="https://linkedin.com/in/william-eliot-quispe-chino" target="_blank">
+            <div class="btn-icon blue"><i class="ti ti-brand-linkedin" aria-hidden="true"></i></div>
+            <div>
+              <span class="btn-label">LinkedIn</span>
+              <span class="btn-sub">william-eliot-quispe-chino</span>
+            </div>
+            <span class="btn-arrow"><i class="ti ti-chevron-right" aria-hidden="true"></i></span>
+          </a>
+          <a class="action-btn" href="https://github.com/WEliotQCH" target="_blank">
+            <div class="btn-icon github"><i class="ti ti-brand-github" aria-hidden="true"></i></div>
+            <div>
+              <span class="btn-label">GitHub</span>
+              <span class="btn-sub">github.com/WEliotQCH</span>
+            </div>
+            <span class="btn-arrow"><i class="ti ti-chevron-right" aria-hidden="true"></i></span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="right-panel">
+      <div class="available-badge">
+        <div class="avail-dot"></div>
+        <div class="avail-text">
+          <strong>Disponible</strong>
+          <span>Abierto a prácticas</span>
+        </div>
+      </div>
+
+      <div class="tech-card">
+        <div class="tech-card-label">Stack</div>
+        <div class="tech-list">
+          <div class="tech-row">
+            <span class="tech-name">C# / .NET</span>
+            <div class="tech-bar-bg"><div class="tech-bar-fill" style="width:88%"></div></div>
+          </div>
+          <div class="tech-row">
+            <span class="tech-name">Flutter</span>
+            <div class="tech-bar-bg"><div class="tech-bar-fill" style="width:82%"></div></div>
+          </div>
+          <div class="tech-row">
+            <span class="tech-name">Python</span>
+            <div class="tech-bar-bg"><div class="tech-bar-fill" style="width:75%"></div></div>
+          </div>
+          <div class="tech-row">
+            <span class="tech-name">React</span>
+            <div class="tech-bar-bg"><div class="tech-bar-fill" style="width:70%"></div></div>
+          </div>
+          <div class="tech-row">
+            <span class="tech-name">SQL</span>
+            <div class="tech-bar-bg"><div class="tech-bar-fill" style="width:78%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="qr-placeholder">
+        <div class="qr-box">
+          <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="4" width="20" height="20" rx="2" fill="#1B2B4B"/>
+            <rect x="8" y="8" width="12" height="12" rx="1" fill="white"/>
+            <rect x="10" y="10" width="8" height="8" fill="#1B2B4B"/>
+            <rect x="40" y="4" width="20" height="20" rx="2" fill="#1B2B4B"/>
+            <rect x="44" y="8" width="12" height="12" rx="1" fill="white"/>
+            <rect x="46" y="10" width="8" height="8" fill="#1B2B4B"/>
+            <rect x="4" y="40" width="20" height="20" rx="2" fill="#1B2B4B"/>
+            <rect x="8" y="44" width="12" height="12" rx="1" fill="white"/>
+            <rect x="10" y="46" width="8" height="8" fill="#1B2B4B"/>
+            <rect x="28" y="4" width="4" height="4" fill="#1B2B4B"/>
+            <rect x="34" y="4" width="4" height="4" fill="#1B2B4B"/>
+            <rect x="28" y="10" width="4" height="4" fill="#1B2B4B"/>
+            <rect x="34" y="14" width="4" height="4" fill="#1B2B4B"/>
+            <rect x="28" y="16" width="8" height="4" fill="#1B2B4B"/>
+            <rect x="28" y="28" width="8" height="4" fill="#3A7BD5"/>
+            <rect x="38" y="28" width="4" height="4" fill="#3A7BD5"/>
+            <rect x="44" y="28" width="16" height="4" fill="#3A7BD5"/>
+            <rect x="28" y="34" width="4" height="4" fill="#1B2B4B"/>
+            <rect x="34" y="34" width="8" height="4" fill="#1B2B4B"/>
+            <rect x="44" y="34" width="4" height="8" fill="#1B2B4B"/>
+            <rect x="50" y="34" width="4" height="4" fill="#1B2B4B"/>
+            <rect x="56" y="34" width="4" height="4" fill="#1B2B4B"/>
+            <rect x="28" y="40" width="4" height="4" fill="#1B2B4B"/>
+            <rect x="34" y="40" width="8" height="4" fill="#1B2B4B"/>
+            <rect x="50" y="40" width="10" height="4" fill="#1B2B4B"/>
+            <rect x="28" y="46" width="12" height="4" fill="#1B2B4B"/>
+            <rect x="44" y="46" width="4" height="4" fill="#1B2B4B"/>
+            <rect x="50" y="46" width="4" height="4" fill="#1B2B4B"/>
+            <rect x="56" y="46" width="4" height="8" fill="#1B2B4B"/>
+            <rect x="28" y="52" width="4" height="8" fill="#1B2B4B"/>
+            <rect x="34" y="56" width="8" height="4" fill="#1B2B4B"/>
+            <rect x="44" y="52" width="8" height="4" fill="#1B2B4B"/>
+            <rect x="44" y="58" width="4" height="2" fill="#1B2B4B"/>
+          </svg>
+        </div>
+        <div class="qr-label">Sube tu tarjeta y<br>genera tu QR real</div>
+      </div>
+    </div>
+
+  </div>
+</div>
